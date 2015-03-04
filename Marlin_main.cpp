@@ -1209,11 +1209,13 @@ static float probe_pt(float x, float y, float z_before, int retract_action=0) {
 #ifndef Z_PROBE_SLED
    if ((retract_action==0) || (retract_action==1)) 
      engage_z_probe();   // Engage Z Servo endstop if available
+     delay(500);    //////////////////////////////////////////////////// wait for probe to be engaged
 #endif // Z_PROBE_SLED
   run_z_probe();
   float measured_z = current_position[Z_AXIS];
 #ifndef Z_PROBE_SLED
   if ((retract_action==0) || (retract_action==3)) 
+     delay(500);    //////////////////////////////////////////////////// wait before probe retractation
      retract_z_probe();
 #endif // Z_PROBE_SLED
 
