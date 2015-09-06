@@ -1200,6 +1200,23 @@ static void retract_z_probe() {
     #endif
 }
 
+static void retract_z_probe_no_delay() {
+    // Retract Z Servo endstop if enabled
+    #ifdef SERVO_ENDSTOPS
+    if (servo_endstops[Z_AXIS] > -1) {
+#if defined (ENABLE_AUTO_BED_LEVELING) && (PROBE_SERVO_DEACTIVATION_DELAY > 0)
+        servos[servo_endstops[Z_AXIS]].attach(0);
+#endif
+        servos[servo_endstops[Z_AXIS]].write(servo_endstop_angles[Z_AXIS * 2 + 1]);
+#if defined (ENABLE_AUTO_BED_LEVELING) && (PROBE_SERVO_DEACTIVATION_DELAY > 0)
+        //delay(PROBE_SERVO_DEACTIVATION_DELAY);
+        servos[servo_endstops[Z_AXIS]].detach();
+#endif
+    }
+    #endif
+}
+
+
 /// Probe bed height at position (x,y), returns the measured z value
 static float probe_pt(float x, float y, float z_before, int retract_action=0) {
   // move to right place
@@ -1209,13 +1226,11 @@ static float probe_pt(float x, float y, float z_before, int retract_action=0) {
 #ifndef Z_PROBE_SLED
    if ((retract_action==0) || (retract_action==1)) 
      engage_z_probe();   // Engage Z Servo endstop if available
-     delay(500);    //////////////////////////////////////////////////// wait for probe to be engaged
 #endif // Z_PROBE_SLED
   run_z_probe();
   float measured_z = current_position[Z_AXIS];
 #ifndef Z_PROBE_SLED
   if ((retract_action==0) || (retract_action==3)) 
-     delay(500);    //////////////////////////////////////////////////// wait before probe retractation
      retract_z_probe();
 #endif // Z_PROBE_SLED
 
