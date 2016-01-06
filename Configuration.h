@@ -58,7 +58,7 @@ Here are some standard links for getting your machine calibrated:
 #define SERIAL_PORT 0
 
 // This determines the communication speed of the printer
-#define BAUDRATE 115200
+#define BAUDRATE 250000 //115200
 
 // This enables the serial port associated to the Bluetooth interface
 //#define BTENABLED              // Enable BT interface on AT90USB devices
@@ -405,7 +405,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
   #ifdef AUTO_BED_LEVELING_GRID
 
     // set the rectangle in which to probe
-    #define LEFT_PROBE_BED_POSITION 40 //0
+    #define LEFT_PROBE_BED_POSITION 50 //0
     #define RIGHT_PROBE_BED_POSITION 180 //160
     #define BACK_PROBE_BED_POSITION 195 //180
     #define FRONT_PROBE_BED_POSITION 25 //120
@@ -434,7 +434,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
   #define X_PROBE_OFFSET_FROM_EXTRUDER 30
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 0
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -2.5-1.47+1-0.3-0.3+0.3  - 0.6+0.3+0.2 +1.1 -0.9// add negative is m114 returns positive  (last -0.5 is due to the blue tape)
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -2.5-1.47+1-0.3-0.3+0.3  - 0.6+0.3+0.2 +1.1 -0.9-0.6// add negative is m114 returns positive  (last -0.5 is due to the blue tape)
 
 
   #define Z_RAISE_BEFORE_HOMING 0       // (in mm) Raise Z before homing (G28) for Probe Clearance.
